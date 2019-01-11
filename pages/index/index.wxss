@@ -1,0 +1,135 @@
+/**index.wxss**/
+@import "../../common/lib/weui.wxss";
+.icon {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 10px;
+}
+.font23 {
+  font-size: 23rpx;
+}
+.font25 {
+  font-size: 25rpx;
+}
+.font27 {
+  font-size: 27rpx;
+}
+.font29 {
+  font-size: 29rpx;
+}
+/* 下拉菜单 */
+.select {
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+  padding: 0 29rpx;
+}
+.select-more-unfold {
+  width: 25rpx;
+  margin: 0 10rpx;
+}
+.picker {
+  background-color: #FFFFFF;
+}
+/* banner轮播 */
+.banner {
+  width: 100%;
+  height: 258rpx;
+}
+.banner-img-width {
+  width: 100%;
+}
+/* .banner-img-height {
+  height: 258rpx;
+} */
+/* 应用头条 */
+.news-title {
+  height: 46rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.news-title-img {
+  width: 101rpx;
+  /* height: 24rpx; */
+  padding: 0 33rpx;
+}
+.news-title-swiper {
+  height: 46rpx;
+  line-height: 46rpx;
+  flex-grow: 1;
+}
+
+.hr {
+  height: 21rpx;
+  background-color: #F2F2F4;
+}
+
+/* 办公 */
+.office {
+  height: 510rpx;
+}
+/* .office::before {
+  content: '';
+  display: block;
+  height: 21rpx;
+  background-color: #F2F2F4;
+} */
+.office-top {
+  height: 77rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 29rpx;
+  justify-content: space-between;
+}
+.office-list-wrap {
+  /* height:  */
+}
+.office-list {
+  height: 412rpx;
+}
+.office-list-scroll-view {
+  /* margin: 0 50rpx; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 100%;
+}
+.office-icon {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 10px;
+}
+.office-list-item {
+  width: 187.5rpx;
+  text-align: center;
+  padding-bottom: 31rpx;
+}
+
+.my-apps-top {
+  height: 52rpx;
+  background-color: #F2F2F4;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 29rpx;
+  align-items: center;
+}
+.my-apps-title {
+  color: #666666;
+}
+.my-apps-manage {
+  color: #198AFF;
+}
+.my-apps-cate {
+  color: #666666;
+  font-size: 27rpx;
+}
+.item-name {
+  color: #333333;
+  font-size: 25rpx;
+}
+
+.button-text {
+  color: #30C5C3;
+  font-size: 27rpx;
+}
