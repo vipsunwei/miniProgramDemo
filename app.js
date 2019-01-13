@@ -1,4 +1,5 @@
 //app.js
+const config = require('./config.js')
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -6,6 +7,7 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    this.globalData.config = config
     // 登录
     // wx.login({
     //   success: res => {

@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
+const config = app.globalData.config
 
 Page({
   onShareAppMessage() {
@@ -11,11 +12,10 @@ Page({
   },
 
   data: {
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-
+    
     selectIndex: 0,
     selectList: [
       '新媒传信科技有限公司',
@@ -36,133 +36,103 @@ Page({
     interval: 4000,
     duration: 1000,
 
-    officeList: [
-      {
-        iconPath: '../../image/icon/icon_taobao.png',
-        name: '淘宝'
-      },
-      {
-        iconPath: '../../image/icon/jd.png',
-        name: '京东'
-      },
-      {
-        iconPath: '../../image/icon/suning.png',
-        name: '苏宁'
-      },
-      {
-        iconPath: '../../image/icon/tmall.png',
-        name: '天猫'
-      },
-      {
-        iconPath: '../../image/icon/didi_01.png',
-        name: '滴滴'
-      },
-      {
-        iconPath: '../../image/icon/hfx.png',
-        name: '和飞信'
-      },
-      {
-        iconPath: '../../image/icon/zhifubao.png',
-        name: '支付宝'
-      },
-      {
-        iconPath: '../../image/icon/douyin@2x.png',
-        name: '抖音'
-      },
-      {
-        iconPath: '../../image/icon/wechat.png',
-        name: '微信'
-      },
-      {
-        iconPath: '../../image/icon/qq.png',
-        name: 'QQ'
-      },
-      {
-        iconPath: '../../image/icon/txsp.png',
-        name: '腾讯视频'
-      },
-      {
-        iconPath: '../../image/icon/aiqiyi.png',
-        name: '爱奇艺'
-      },
-      {
-        iconPath: '../../image/icon/qqyy.png',
-        name: 'QQ音乐'
-      },
-      {
-        iconPath: '../../image/icon/xiaohongshu.png',
-        name: '小红书'
-      },
-      {
-        iconPath: '../../image/icon/kugoo.png',
-        name: '酷狗'
-      },
-      {
-        iconPath: '../../image/icon/kuwo.png',
-        name: '酷我'
-      }
-    ],
-
-    myAppsList: [
-      {
-        iconPath: '../../image/icon/kuwo.png',
-        name: '酷我'
-      },
-      {
-        iconPath: '../../image/icon/kugoo.png',
-        name: '酷狗'
-      },
-      {
-        iconPath: '../../image/icon/xiaohongshu.png',
-        name: '小红书'
-      },
-      {
-        iconPath: '../../image/icon/wechat.png',
-        name: '微信'
-      },
-      {
-        iconPath: '../../image/icon/douyin@2x.png',
-        name: '抖音'
-      }
-    ]
+    freeFlowArea: [],
+    popularApp: [],
+    officeList: [],
+    myAppsList: [],
+  
   },
   //事件处理函数
   bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    // wx.navigateTo({
+    //   url: '../logs/logs'
+    // })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    this.getSysApp()
   },
+
+  getSysApp: function () {
+    let __this = this
+    let mobile = config.testMobile
+    let url = config.sysAppUrl
+    let popularApp = app.globalData.popularApp
+    let freeFlowArea = app.globalData.freeFlowArea
+
+
+
+    wx.request({
+      method: 'POST',
+      url,
+      data: {mobile},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success(res) {
+        console.log('success', res)
+        __this.formatSysApp(res.data.resultmsg)
+      },
+      fail (err) {
+        console.error('err', err)
+      },
+      complete (res) {
+        console.log('complete', res)
+      }
+    })
+  },
+
+  formatSysApp: function (res) {
+    let rawFreeFlowArea = res['免流专区']
+    let rawPopularApp = res['热门应用']
+    
+    app.globalData.freeFlowArea = rawFreeFlowArea
+    app.globalData.popularApp = rawPopularApp
+  
+    let freeFlowArea = this.formatFreeFlowArea(rawFreeFlowArea)
+    this.setData({
+      freeFlowArea
+    })
+
+    let popularApp = this.formatPopularApp(rawPopularApp)
+    this.setData({
+      popularApp
+    })
+  },
+
+  formatFreeFlowArea: function (rawFreeFlowArea) {
+    let __this = this
+    let freeFlowArea = []
+    rawFreeFlowArea.length && rawFreeFlowArea.map(item => {
+      item.logoUrl = __this.formatLogoUrl(item.logourl)
+      freeFlowArea.push(item)
+    })
+    return freeFlowArea
+  },
+
+  formatPopularApp: function (rawPopularApp) {
+    let __this = this
+    let popularApp = []
+    rawPopularApp.length && rawPopularApp.map(item => {
+      item.logoUrl = __this.formatLogoUrl(item.logourl)
+      popularApp.push(item)
+    })
+    return popularApp
+  },
+
+  formatLogoUrl: function (rawLogoUrl) {
+    let logoUrl = ''
+    if (rawLogoUrl.indexOf('http') !== -1) {
+      logoUrl = rawLogoUrl
+    } else {
+      logoUrl = config.host + rawLogoUrl
+    }
+    return logoUrl
+  },
+
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
+    console.log(app.globalData)
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
@@ -171,7 +141,7 @@ Page({
   goToMyApps: function(e) {
     console.log(e)
     wx.navigateTo({
-      url: '../myApps/myApps?id=1',
+      url: '../myApps/myApps',
     })
   },
 

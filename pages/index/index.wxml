@@ -15,7 +15,7 @@
       interval="{{interval}}"
       duration="{{duration}}"
     >
-      <block wx:for="{{imgUrls}}" wx:key="*this">
+      <block wx:for="{{imgUrls}}">
         <swiper-item>
           <image src="{{item}}" mode='widthFix' class="slide-image banner-img-width" />
         </swiper-item>
@@ -33,7 +33,7 @@
       vertical="true"
       circular="true"
     >
-      <block wx:for="{{imgUrls}}" wx:key="*this">
+      <block wx:for="{{imgUrls}}">
         <swiper-item>
           <text class='font23'>{{item}}</text>
         </swiper-item>
@@ -42,27 +42,29 @@
   </view>
 
   <!-- 免流专区 -->
-  <view class="office">
-    <view class='hr'></view>
-    <view class='office-top'>
-      <text class='font27'>免流专区</text>
-      <!-- <text>收起</text> -->
+  <block wx:if='{{!!freeFlowArea.length}}'>
+    <view class="office">
+      <view class='hr'></view>
+      <view class='office-top'>
+        <text class='font27'>免流专区</text>
+        <!-- <text>收起</text> -->
+      </view>
+      <view class="office-list-wrap">
+        <scroll-view scroll-y="true" class='office-list'>
+          <view class='office-list-scroll-view'>
+          
+          <block wx:for="{{freeFlowArea}}">
+            <view class='office-list-item'>
+              <image src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
+              <view class='item-name'>{{item.name}}</view>
+            </view> 
+          </block>
+          
+          </view>
+        </scroll-view>
+      </view>
     </view>
-    <view class="office-list-wrap">
-      <scroll-view scroll-y="true" class='office-list'>
-        <view class='office-list-scroll-view'>
-        
-        <block wx:for="{{officeList}}" wx:key="*this">
-          <view class='office-list-item'>
-            <image src="{{item.iconPath}}" mode='widthFix' class='icon office-icon'></image>
-            <view class='item-name'>{{item.name}}</view>
-          </view> 
-        </block>
-        
-        </view>
-      </scroll-view>
-    </view>
-  </view>
+  </block>
 
   <!-- 热门应用 -->
   <view class="office">
@@ -75,9 +77,9 @@
       <scroll-view scroll-y="true" class='office-list'>
         <view class='office-list-scroll-view'>
         
-        <block wx:for="{{officeList}}" wx:key="*this">
+        <block wx:for="{{popularApp}}">
           <view class='office-list-item'>
-            <image src="{{item.iconPath}}" mode='widthFix' class='icon office-icon'></image>
+            <image src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
             <view class='item-name'>{{item.name}}</view>
           </view> 
         </block>
@@ -87,7 +89,7 @@
     </view>
   </view>
  
-  <view class='my-apps-section'>
+  <view class='my-apps-section' wx:if='{{!!myAppsList.length}}'>
     <view class='my-apps-top'>
       <view class='my-apps-title font27'>我的应用</view>
       <view class='my-apps-manage font25' bindtap='goToMyApps'>管理</view>
@@ -100,7 +102,7 @@
       <scroll-view class='my-apps-list' scroll-y='true'>
       <view class='office-list-scroll-view my-apps-list-view'>
       
-        <block wx:for='{{myAppsList}}' wx:key='*this'>
+        <block wx:for='{{myAppsList}}'>
           <view class='office-list-item'>
             <image mode='widthFix' class='icon' src='{{item.iconPath}}'></image>
             <view class='item-name'>{{item.name}}</view>
@@ -113,6 +115,7 @@
     </view>
   </view>
   <view>
+    <view class='hr'></view>
     <navigator url="../appCenter/appCenter" class="navigator">
       <button class="button-text font27">添加应用</button>
     </navigator>
