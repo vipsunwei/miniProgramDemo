@@ -19,6 +19,8 @@ Page({
   onLoad: function (options) {
     console.log(options)
     this.formatProfile(options)
+    let res = wx.getLaunchOptionsSync()
+    console.log('launch', res)
   },
 
   formatSysApp: function (options) {
@@ -26,7 +28,7 @@ Page({
     let cat = options.c === 'mlzq' ? '免流专区' : options.c === 'rmyy' ? '热门应用' : ''
     let id = options.i
     let profile = {}
-    console.log('reEnter: ', app.globalData, options)
+    console.log('进来: ', app.globalData, options)
     let list = rawSysApp[cat]
     for (let i = 0, l = list.length; i < l; i++) {
       let item = list[i]
@@ -110,7 +112,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+    wx.stopPullDownRefresh()
   },
 
   /**
@@ -124,6 +126,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+    return {
+      title: '应用详情'
+    }
   }
 })
