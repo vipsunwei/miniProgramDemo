@@ -141,7 +141,7 @@ Page({
     let selectList = this.data.selectList
     let currentKey = selectList[selectIndex].key
     let rawAppList = app.globalData.rawAppList
-    let officeList = this.formatOfficeList(rawAppList, currentKey)
+    let officeList = format.formatOfficeList(rawAppList, currentKey)
     this.setData({
       officeList
     })
