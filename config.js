@@ -11,7 +11,10 @@ const config = {
   testMobile: '15811265129',
   host: `${protocol}${domain}`,
   // 免流和热门应用接口
-  sysAppUrl: `${protocol}${domain}${apiUrl}/getsysapp`
+  sysAppUrl: `${protocol}${domain}${apiUrl}/getsysapp`,
+
+  // 办公接口
+  appListUrl: `${protocol}${domain}${apiUrl}/getapplist`
 }
 
 module.exports = config
