@@ -17,14 +17,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     
     selectIndex: 0,
-    selectList: [
-      '新媒传信科技有限公司',
-      '融通公司',
-      '神州泰岳',
-      '阿里巴巴',
-      '百度',
-      '腾讯'
-    ],
+    selectList: [],
 
     imgUrls: [
       '../../image/banner_test.jpg',
@@ -36,9 +29,9 @@ Page({
     interval: 4000,
     duration: 1000,
 
+    officeList: [],
     freeFlowArea: [],
     popularApp: [],
-    officeList: [],
     myAppsList: [],
   
   },
@@ -49,17 +42,14 @@ Page({
     // })
   },
   onLoad: function () {
+    this.getAppList()
     this.getSysApp()
   },
 
-  getSysApp: function () {
+  getAppList: function () {
     let __this = this
     let mobile = config.testMobile
-    let url = config.sysAppUrl
-    let popularApp = app.globalData.popularApp
-    let freeFlowArea = app.globalData.freeFlowArea
-
-
+    let url = config.appListUrl
 
     wx.request({
       method: 'POST',
@@ -68,7 +58,71 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      success(res) {
+      success (res) {
+        console.log('success', res)
+        __this.formatAppList(res.data.resultmsg)
+      },
+      fail (err) {
+        console.error('err', err)
+      },
+      complete (res) {
+        console.log('complete', res)
+      }
+    })
+  },
+  formatAppList: function (res) {
+    app.globalData.rawAppList = res
+    let selectList = this.formatSelectList(res)
+    this.setData({
+      selectList
+    })
+
+    let selectIndex = this.data.selectIndex
+    let currentKey = selectList[selectIndex].key
+    let officeList = this.formatOfficeList(res, currentKey)
+    this.setData({
+      officeList
+    })
+  },
+  formatSelectList: function (rawAppList) {
+    let selectList = []
+    if (rawAppList && typeof rawAppList === 'object') {
+      for (const key in rawAppList) {
+        if (rawAppList.hasOwnProperty(key)) {
+          selectList.push({
+            key,
+            name: rawAppList[key][0].publicNickname
+          })
+        }
+      }
+    }
+    return selectList
+  },
+  formatOfficeList: function (rawAppList, currentKey) {
+    let __this = this
+    let officeList = []
+    if (rawAppList && typeof rawAppList === 'object') {
+      let rawOfficeList = rawAppList[currentKey]
+      rawOfficeList.length && rawOfficeList.map(item => {
+        item.logoUrl = __this.formatLogoUrl(item.logourl)
+        officeList.push(item)
+      })
+    }
+    return officeList
+  },
+  getSysApp: function () {
+    let __this = this
+    let mobile = config.testMobile
+    let url = config.sysAppUrl
+
+    wx.request({
+      method: 'POST',
+      url,
+      data: {mobile},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success (res) {
         console.log('success', res)
         __this.formatSysApp(res.data.resultmsg)
       },
@@ -82,11 +136,9 @@ Page({
   },
 
   formatSysApp: function (res) {
+    app.globalData.rawSysApp = res
     let rawFreeFlowArea = res['免流专区']
     let rawPopularApp = res['热门应用']
-    
-    app.globalData.freeFlowArea = rawFreeFlowArea
-    app.globalData.popularApp = rawPopularApp
   
     let freeFlowArea = this.formatFreeFlowArea(rawFreeFlowArea)
     this.setData({
@@ -129,15 +181,6 @@ Page({
     return logoUrl
   },
 
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    console.log(app.globalData)
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
   goToMyApps: function(e) {
     console.log(e)
     wx.navigateTo({
@@ -146,9 +189,27 @@ Page({
   },
 
   bindPickerChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    let selectIndex = e.detail.value
     this.setData({
-      selectIndex: e.detail.value
+      selectIndex
+    })
+
+    let selectList = this.data.selectList
+    let currentKey = selectList[selectIndex].key
+    let rawAppList = app.globalData.rawAppList
+    let officeList = this.formatOfficeList(rawAppList, currentKey)
+    this.setData({
+      officeList
+    })
+  },
+
+  getUserInfo: function(e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    console.log(app.globalData)
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
     })
   },
 })

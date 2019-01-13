@@ -2,8 +2,8 @@
 <view class="container">
   <!-- 下拉菜单 -->
   <view class="weui-cell__bd select">
-    <picker mode="selector" bindchange="bindPickerChange" value="{{selectIndex}}" range="{{selectList}}">
-      <text class="weui-input picker font29">{{selectList[selectIndex]}}</text>
+    <picker mode="selector" bindchange="bindPickerChange" value="{{selectIndex}}" range="{{selectList}}" range-key="name">
+      <text class="weui-input picker font29">{{selectList[selectIndex].name}}</text>
       <image src='../../image/icon/more_unfold.png' mode='widthFix' class='select-more-unfold'></image>
     </picker>
   </view>
@@ -41,6 +41,31 @@
     </swiper>
   </view>
 
+  <!-- 办公 -->
+  <block wx:if='{{!!officeList.length}}'>
+    <view class="office">
+      <view class='hr'></view>
+      <view class='office-top'>
+        <text class='font27'>办公</text>
+        <!-- <text>收起</text> -->
+      </view>
+      <view class="office-list-wrap">
+        <scroll-view scroll-y="true" class='office-list'>
+          <view class='office-list-scroll-view'>
+          
+          <block wx:for="{{officeList}}">
+            <view class='office-list-item'>
+              <image src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
+              <view class='item-name ellipsis'>{{item.name}}</view>
+            </view> 
+          </block>
+          
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </block>
+
   <!-- 免流专区 -->
   <block wx:if='{{!!freeFlowArea.length}}'>
     <view class="office">
@@ -67,27 +92,30 @@
   </block>
 
   <!-- 热门应用 -->
-  <view class="office">
-    <view class='hr'></view>
-    <view class='office-top'>
-      <text class='font27'>热门应用</text>
-      <!-- <text>收起</text> -->
+  <block wx:if="{{!!popularApp.length}}">
+    <view class="office">
+      <view class='hr'></view>
+      <view class='office-top'>
+        <text class='font27'>热门应用</text>
+        <!-- <text>收起</text> -->
+      </view>
+      <view class="office-list-wrap">
+        <scroll-view scroll-y="true" class='office-list'>
+          <view class='office-list-scroll-view'>
+          
+          <block wx:for="{{popularApp}}">
+            <view class='office-list-item'>
+              <image src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
+              <view class='item-name'>{{item.name}}</view>
+            </view> 
+          </block>
+          
+          </view>
+        </scroll-view>
+      </view>
     </view>
-    <view class="office-list-wrap">
-      <scroll-view scroll-y="true" class='office-list'>
-        <view class='office-list-scroll-view'>
-        
-        <block wx:for="{{popularApp}}">
-          <view class='office-list-item'>
-            <image src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
-            <view class='item-name'>{{item.name}}</view>
-          </view> 
-        </block>
-        
-        </view>
-      </scroll-view>
-    </view>
-  </view>
+  </block>
+  
  
   <view class='my-apps-section' wx:if='{{!!myAppsList.length}}'>
     <view class='my-apps-top'>
