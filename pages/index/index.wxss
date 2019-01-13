@@ -97,7 +97,7 @@
 .office-icon {
   width: 100rpx;
   height: 100rpx;
-  border-radius: 10px;
+  border-radius: 10rpx;
 }
 .office-list-item {
   width: 187.5rpx;

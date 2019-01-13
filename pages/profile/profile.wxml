@@ -1,0 +1,31 @@
+<view class='container'>
+  <view class='profile-name-parent'>
+    <image src='{{profile.logoUrl}}' mode='widthFix' class='profile-icon'></image>
+    <text class='profile-name ellipsis font35'>{{profile.name}}</text>
+  </view>
+
+  <view class='hr'></view>
+
+  <view wx:if="{{!!imgList.length}}" class='profile-img-wrap'>
+    <scroll-view scroll-x class='profile-img-list'>
+      <view class='profile-img-list-view'>
+
+        <block wx:for='{{imgList}}' wx:key="{{index}}">
+          <image src='{{item.imgPath}}' mode='widthFix' class='profile-img'></image>
+        </block>
+
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class='hr'></view>
+
+  <view>
+    <view class='profile-intro font35'>应用介绍</view>
+    <view class='font27 profile-text'>{{profile.profile}}</view>
+  </view> 
+
+  <view class='profile-add-parent'>
+    <button class='profile-add font33'>添加</button>
+  </view>
+</view>

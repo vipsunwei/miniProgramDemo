@@ -80,8 +80,8 @@
           
           <block wx:for="{{freeFlowArea}}">
             <view class='office-list-item'>
-              <image src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
-              <view class='item-name'>{{item.name}}</view>
+              <image data-id="{{item.id}}" data-cat="{{'mlzq'}}" bindtap="toAppProfile" src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
+              <view class='item-name ellipsis'>{{item.name}}</view>
             </view> 
           </block>
           
@@ -105,8 +105,8 @@
           
           <block wx:for="{{popularApp}}">
             <view class='office-list-item'>
-              <image src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
-              <view class='item-name'>{{item.name}}</view>
+              <image data-id="{{item.id}}" data-cat="{{'rmyy'}}" bindtap="toAppProfile" src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
+              <view class='item-name ellipsis'>{{item.name}}</view>
             </view> 
           </block>
           

@@ -2,3 +2,31 @@
 .container {
   height: 100vh;
 }
+
+.font23 {
+  font-size: 23rpx;
+}
+.font25 {
+  font-size: 25rpx;
+}
+.font27 {
+  font-size: 27rpx;
+}
+.font29 {
+  font-size: 29rpx;
+}
+.font33 {
+  font-size: 33rpx;
+}
+.font35 {
+  font-size: 35rpx;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}

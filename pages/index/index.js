@@ -1,4 +1,6 @@
 //index.js
+const service = require('../../service/service.js')
+const format = require('../../format/format.js')
 //获取应用实例
 const app = getApp()
 const config = app.globalData.config
@@ -51,87 +53,32 @@ Page({
     let mobile = config.testMobile
     let url = config.appListUrl
 
-    wx.request({
-      method: 'POST',
-      url,
-      data: {mobile},
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success (res) {
-        console.log('success', res)
-        __this.formatAppList(res.data.resultmsg)
-      },
-      fail (err) {
-        console.error('err', err)
-      },
-      complete (res) {
-        console.log('complete', res)
-      }
+    service.getAppList({url, mobile}).then(function (res) {
+      __this.formatAppList(res.data.resultmsg)
     })
   },
   formatAppList: function (res) {
     app.globalData.rawAppList = res
-    let selectList = this.formatSelectList(res)
+    let selectList = format.formatSelectList(res)
     this.setData({
       selectList
     })
 
     let selectIndex = this.data.selectIndex
     let currentKey = selectList[selectIndex].key
-    let officeList = this.formatOfficeList(res, currentKey)
+    let officeList = format.formatOfficeList(res, currentKey)
     this.setData({
       officeList
     })
-  },
-  formatSelectList: function (rawAppList) {
-    let selectList = []
-    if (rawAppList && typeof rawAppList === 'object') {
-      for (const key in rawAppList) {
-        if (rawAppList.hasOwnProperty(key)) {
-          selectList.push({
-            key,
-            name: rawAppList[key][0].publicNickname
-          })
-        }
-      }
-    }
-    return selectList
-  },
-  formatOfficeList: function (rawAppList, currentKey) {
-    let __this = this
-    let officeList = []
-    if (rawAppList && typeof rawAppList === 'object') {
-      let rawOfficeList = rawAppList[currentKey]
-      rawOfficeList.length && rawOfficeList.map(item => {
-        item.logoUrl = __this.formatLogoUrl(item.logourl)
-        officeList.push(item)
-      })
-    }
-    return officeList
   },
   getSysApp: function () {
     let __this = this
     let mobile = config.testMobile
     let url = config.sysAppUrl
 
-    wx.request({
-      method: 'POST',
-      url,
-      data: {mobile},
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success (res) {
-        console.log('success', res)
-        __this.formatSysApp(res.data.resultmsg)
-      },
-      fail (err) {
-        console.error('err', err)
-      },
-      complete (res) {
-        console.log('complete', res)
-      }
+    service.getSysApp({url, mobile}).then(function (res) {
+      console.log('promise: ', res)
+      __this.formatSysApp(res.data.resultmsg)
     })
   },
 
@@ -140,47 +87,26 @@ Page({
     let rawFreeFlowArea = res['免流专区']
     let rawPopularApp = res['热门应用']
   
-    let freeFlowArea = this.formatFreeFlowArea(rawFreeFlowArea)
+    let freeFlowArea = format.formatFreeFlowArea(rawFreeFlowArea)
     this.setData({
       freeFlowArea
     })
 
-    let popularApp = this.formatPopularApp(rawPopularApp)
+    let popularApp = format.formatPopularApp(rawPopularApp)
     this.setData({
       popularApp
     })
   },
 
-  formatFreeFlowArea: function (rawFreeFlowArea) {
-    let __this = this
-    let freeFlowArea = []
-    rawFreeFlowArea.length && rawFreeFlowArea.map(item => {
-      item.logoUrl = __this.formatLogoUrl(item.logourl)
-      freeFlowArea.push(item)
+  toAppProfile: function (e) {
+    let c = e.target.dataset.cat
+    let i = e.target.dataset.id
+    console.log(c, i)
+
+    wx.navigateTo({
+      url: `../profile/profile?c=${c}&i=${i}`
     })
-    return freeFlowArea
   },
-
-  formatPopularApp: function (rawPopularApp) {
-    let __this = this
-    let popularApp = []
-    rawPopularApp.length && rawPopularApp.map(item => {
-      item.logoUrl = __this.formatLogoUrl(item.logourl)
-      popularApp.push(item)
-    })
-    return popularApp
-  },
-
-  formatLogoUrl: function (rawLogoUrl) {
-    let logoUrl = ''
-    if (rawLogoUrl.indexOf('http') !== -1) {
-      logoUrl = rawLogoUrl
-    } else {
-      logoUrl = config.host + rawLogoUrl
-    }
-    return logoUrl
-  },
-
   goToMyApps: function(e) {
     console.log(e)
     wx.navigateTo({

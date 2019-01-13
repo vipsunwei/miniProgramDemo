@@ -1,0 +1,66 @@
+.container {
+  padding: 0 29rpx;
+}
+
+.profile-icon {
+  width: 125rpx;
+  height: 125rpx;
+  border-radius: 23rpx;
+}
+
+.profile-img-wrap {
+  margin: 29rpx 0;
+}
+
+.profile-img {
+  width: 215rpx;
+  height: 381rpx;
+  margin-left: 23rpx;
+}
+
+.profile-img-list {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.profile-img-list-view {
+  height: 381rpx;
+  width: 100%;
+}
+
+.hr {
+  border-top: 1rpx solid #DCDCDC;
+}
+
+.profile-name-parent {
+  display: flex;
+  align-items: center;
+  padding: 35rpx 0;
+}
+
+.profile-name {
+  color: #333333;
+  margin-left: 30rpx;
+}
+
+.profile-intro {
+  margin-top: 35rpx;
+  margin-bottom: 20rpx;
+}
+
+.profile-text {
+  color: #666666;
+}
+
+.profile-add-parent {
+  margin-top: 63rpx;
+}
+
+.profile-add {
+  width: 193rpx;
+  height: 67rpx;
+  line-height: 67rpx;
+  border-radius: 41rpx;
+  border: 1rpx solid #198AFF;
+  color: #198AFF;
+}

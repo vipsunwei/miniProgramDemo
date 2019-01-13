@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/myApps/myApps",
-    "pages/appCenter/appCenter"
+    "pages/appCenter/appCenter",
+    "pages/profile/profile"
   ],
   "window":{
     "backgroundTextStyle":"light",
