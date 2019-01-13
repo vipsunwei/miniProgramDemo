@@ -6,11 +6,29 @@ const app = getApp()
 const config = app.globalData.config
 
 Page({
+  /**
+   * 用户点击右上角分享
+   */
   onShareAppMessage() {
     return {
       title: '小程序demo',
       path: 'pages/index/index'
     }
+  },
+  /**
+  * 页面相关事件处理函数--监听用户下拉动作
+  */
+  onPullDownRefresh: function () {
+    this.getAppList()
+    this.getSysApp()
+    wx.showLoading({
+      title: 'loading...',
+      mask: true,
+      success (res) {
+        setTimeout(() => {wx.hideLoading()}, 2000)
+      }
+    })
+    setTimeout(() => {wx.stopPullDownRefresh()}, 2000)
   },
 
   data: {
