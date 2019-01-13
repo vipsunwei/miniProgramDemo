@@ -86,7 +86,7 @@
   /* height:  */
 }
 .office-list {
-  /* height: 412rpx; */
+  max-height: 412rpx;
 }
 .office-list-scroll-view {
   /* margin: 0 50rpx; */
@@ -126,6 +126,14 @@
 .item-name {
   color: #333333;
   font-size: 25rpx;
+}
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .button-text {
