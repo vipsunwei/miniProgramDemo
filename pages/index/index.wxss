@@ -67,7 +67,7 @@
 
 /* 办公 */
 .office {
-  height: 510rpx;
+  max-height: 510rpx;
 }
 /* .office::before {
   content: '';
@@ -86,14 +86,13 @@
   /* height:  */
 }
 .office-list {
-  height: 412rpx;
+  /* height: 412rpx; */
 }
 .office-list-scroll-view {
   /* margin: 0 50rpx; */
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  height: 100%;
+  /* height: 100%; */
 }
 .office-icon {
   width: 100rpx;
