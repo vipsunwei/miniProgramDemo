@@ -79,9 +79,9 @@
           <view class='office-list-scroll-view'>
           
           <block wx:for="{{freeFlowArea}}">
-            <view class='office-list-item'>
-              <image data-id="{{item.id}}" data-cat="{{'mlzq'}}" bindtap="toAppProfile" src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
-              <view class='item-name ellipsis'>{{item.name}}</view>
+            <view class='office-list-item' data-id="{{item.id}}" data-cat="{{'mlzq'}}" bindtap="toAppProfile">
+              <image src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon' data-id="{{item.id}}" data-cat="{{'mlzq'}}"></image>
+              <view class='item-name ellipsis' data-id="{{item.id}}" data-cat="{{'mlzq'}}">{{item.name}}</view>
             </view> 
           </block>
           
@@ -104,9 +104,9 @@
           <view class='office-list-scroll-view'>
           
           <block wx:for="{{popularApp}}">
-            <view class='office-list-item'>
-              <image data-id="{{item.id}}" data-cat="{{'rmyy'}}" bindtap="toAppProfile" src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
-              <view class='item-name ellipsis'>{{item.name}}</view>
+            <view data-id="{{item.id}}" data-cat="{{'rmyy'}}" capture-catch:tap="toAppProfile" class='office-list-item'>
+              <image data-id="{{item.id}}" data-cat="{{'rmyy'}}" src="{{item.logoUrl}}" mode='widthFix' class='icon office-icon'></image>
+              <view data-id="{{item.id}}" data-cat="{{'rmyy'}}" class='item-name ellipsis'>{{item.name}}</view>
             </view> 
           </block>
           
