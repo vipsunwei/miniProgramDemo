@@ -50,7 +50,7 @@
         <!-- <text>收起</text> -->
       </view>
       <view class="office-list-wrap">
-        <scroll-view scroll-y="true" class='office-list'>
+        <scroll-view scroll-x="true" class='office-list'>
           <view class='office-list-scroll-view'>
           
           <block wx:for="{{officeList}}">
@@ -75,7 +75,7 @@
         <!-- <text>收起</text> -->
       </view>
       <view class="office-list-wrap">
-        <scroll-view scroll-y="true" class='office-list'>
+        <scroll-view scroll-x="true" class='office-list'>
           <view class='office-list-scroll-view'>
           
           <block wx:for="{{freeFlowArea}}">
@@ -100,7 +100,7 @@
         <!-- <text>收起</text> -->
       </view>
       <view class="office-list-wrap">
-        <scroll-view scroll-y="true" class='office-list'>
+        <scroll-view scroll-x="true" class='office-list'>
           <view class='office-list-scroll-view'>
           
           <block wx:for="{{popularApp}}">

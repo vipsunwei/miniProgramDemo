@@ -67,7 +67,7 @@
 
 /* 办公 */
 .office {
-  max-height: 510rpx;
+  max-height: 280rpx;
 }
 /* .office::before {
   content: '';
@@ -86,12 +86,13 @@
   /* height:  */
 }
 .office-list {
-  max-height: 412rpx;
+  max-height: 184rpx;
+  white-space: nowrap;
 }
 .office-list-scroll-view {
   /* margin: 0 50rpx; */
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
   /* height: 100%; */
 }
 .office-icon {
@@ -100,9 +101,12 @@
   border-radius: 10rpx;
 }
 .office-list-item {
-  width: 187.5rpx;
+  display: inline-block;
+  width: 126rpx;
   text-align: center;
-  padding-bottom: 31rpx;
+  margin-bottom: 31rpx;
+  margin-left: 30.75rpx;
+  margin-right: 30.75rpx;
 }
 
 .my-apps-top {
@@ -126,14 +130,12 @@
 .item-name {
   color: #333333;
   font-size: 25rpx;
+  width: 126rpx;
 }
 .ellipsis {
   text-overflow: ellipsis;
-  white-space: normal;
+  white-space: nowrap;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
 }
 
 .button-text {
